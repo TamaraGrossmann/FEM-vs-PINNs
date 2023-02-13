@@ -6,9 +6,36 @@ Partial differential equations play a fundamental role in the mathematical model
 
 If you use this code, please cite:
 ```bibtex
-@article{grossmann2023,
-    title={Can Physics-Informed Neural Networks beat the Finite Element Method?},
-    author={Tamara G. Grossmann and Urszula Julia Komorowska and Jonas Latz and Carola-Bibiane Schönlieb},
-    year={2023}
-  }
+@misc{grossmann2023,
+  doi = {10.48550/ARXIV.2302.04107},
+  url = {https://arxiv.org/abs/2302.04107},
+  author = {Grossmann, Tamara G. and Komorowska, Urszula Julia and Latz, Jonas and Schönlieb, Carola-Bibiane},
+  keywords = {Numerical Analysis (math.NA), Machine Learning (cs.LG), FOS: Mathematics, FOS: Mathematics, FOS: Computer and information sciences, FOS: Computer and information sciences},
+  title = {Can Physics-Informed Neural Networks beat the Finite Element Method?},
+  publisher = {arXiv},
+  year = {2023},
+  copyright = {arXiv.org perpetual, non-exclusive license}
+}
 ```
+
+## Requirements FEM codes
+
+The code was written in Python using the FEniCS toolbox (https://fenicsproject.org/). Following packages are required to run the code smoothly:
+- FEniCS based on dolfin version 2019.1.0
+- numpy
+
+## Requirements PINN codes
+
+The code was written in Pytorch using the jax library for deep learning. Following packages are required to run the code smoothly:
+- jax
+- flax
+- optax
+- tensorflow probability for jax
+- numpy
+- pyDOE
+- scipy
+
+## Evaluation points
+
+Due to file size, we can only upload the evalutation points and solution matrices for Poisson 1D, 2D, Allen-Cahn 1D and Schrödinger 1D. However, the evalutation points and solution matrices for the remaining PDEs can be easily created using FEniCS, as they are based on the meshes generated through the code. Details of mesh size and temporal resolution can be found in the paper. 
+
