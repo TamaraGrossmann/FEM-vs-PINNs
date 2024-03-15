@@ -62,7 +62,7 @@ for num in nums:
     v = TestFunction(V)
 
     # weak form of the pde
-    F = (u - u_n)*v*dx + eps * dot(grad(u),grad(v))*dt*dx + (1/eps) * 2*u_n*(1-u_n)*(1-2*u_n)*v*dt*dx 
+    F = (u - u_n)*v*dx + eps * dot(grad(u),grad(v))*dt*dx + (1/eps) * 2*u*(1-u)*(1-2*u)*v*dt*dx 
     Jac = derivative(F, u)
 
     t0 = time.time()
@@ -92,6 +92,9 @@ for num in nums:
   mesh = IntervalMesh(int(num), 0, 1)# For each mesh, the solution belongs to different V, hence it must be declared again
   V = FunctionSpace(mesh, 'CG', 1, constrained_domain = pbc)
   u_load = []
+  u_temp = Expression('0.5*(0.5*sin(x[0]*2*pi) + 0.5*sin(x[0]*16*pi)) + 0.5', degree = 1) #initial value. Has the real part only
+  u_load.append(interpolate(u_temp, V))
+  all_times = [dt*(n) for n in range(int(num_steps)+1)]
   # Load function
   for n in range(int(num_steps)):
     filepath = './1D-Allen-Cahn-FEM/Approx-Solution-semiimplicit/' + str(num)+"iter_" + str(n)
