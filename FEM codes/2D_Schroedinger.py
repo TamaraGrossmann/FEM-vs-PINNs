@@ -114,6 +114,9 @@ for num in nums:
   mesh = RectangleMesh(Point(-5,-5), Point(5, 5), numx, numy)
   V = VectorFunctionSpace(mesh, 'CG', 1, dim = 2, constrained_domain = pbc)
   u_load = []
+  u_temp = Expression(  ( 'pow(cosh(x[0]), -1) + 0.5 * ( pow(cosh(x[1]-2), -1) + pow(cosh(x[1]+2), -1) )', '0'), degree = 1) 
+  u_load.append(interpolate(u_temp, V))
+  all_times = [dt*(n) for n in range(int(num_steps)+1)]
   # Load function
   save_dir = os.path.join('./2D-Schroedinger-FEM/Approx-Solution-semiimplicit/','Mesh_%03d' %numx)
   for n in range(int(num_steps)):
