@@ -37,7 +37,7 @@ class PeriodicBoundary(SubDomain):
 # Create periodic boundary condition
 pbc = PeriodicBoundary()
 
-dt = 1e-3 # Size of the time step
+dt = 5e-4 # Size of the time step
 T = np.pi / 2
 num_steps = int(T/dt)
 nums = [32,128,512,2048] # Mesh spacings that will be investigated, power of 2 here, maybe 2048
@@ -107,6 +107,9 @@ for num in nums:
   mesh = IntervalMesh(num,-5.0, 5.0) # For each mesh, the solution belongs to different V, hence it must be declared again
   V = VectorFunctionSpace(mesh, 'CG', 1, dim = 2, constrained_domain = pbc)
   u_load = []
+  u_temp = Expression(  ( ' 2*pow(cosh(x[0]), -1)', '0'), degree = 1)
+  u_load.append(interpolate(u_temp, V))
+  all_times = [dt*(n) for n in range(int(num_steps)+1)]
   # Load function
   for n in range(1,int(num_steps)+1):
     filepath = './1D-Schroedinger-FEM/Approx-Solution-semiimplicit/' + str(num)+"iter_" + str(n) 
